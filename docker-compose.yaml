@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17-alpine   #Imagen de docker hub a usar/traerme
+    env_file: .env              #Defino donde vivirán las variables de entorno que el contenedor debera tener en su memoria para futuros usos
+    ports:
+      - "5435:5432"             #Puertos para habilitar la conexion entre host/local : contenedor
+    volumes:                    #Define volumenes que permiten persiste y almacenar data en un espacio del sistema distinto al contenedor por si se llegaase a eliminar este
+      - mi_primera_db:/var/lib/postgresql/data   #nombre del volumen y luego la ruta donde vivirá este volumen
+    restart: unless-stopped                   #se usa para que el servicio es disponible automaticamente y siempre se inicialice en caso de errores o cierres inesperados
+    container_name: mi_postgres_db            # Opcional: fija el nombre del contenedor en ejecución
+  
+  mi_app:
+    build: .                        #indica que la imagen es construira aquí y también da la señal que hay un dokcerfile con todas las especificaciones más concretas
+    image: practica_db_i            # Opcional: Define el nombre de la imagen que se construirá
+    container_name: practica_db_c   # Opcional: fija el nombre del contenedor en ejecución
+    env_file: .env                  #le dice dónde tendra que ir a buscar las variables de entorno      
+    depends_on:                     #se usa para que docker sepa que se deje ejecutar otro servicio antes que este
+      - db                          #define cual servicio se ejecutara antes del presente
+
+volumes:                      #declaracion global del recurso que se quiere almacenar y gestionar
+  mi_primera_db:              #nombre del recurso creado
+#Realizas la declaración global. Le indicas a Docker Compose: "crea y gestiona un nuevo recurso de almacenamiento nombrado postgresDB en el sistema".

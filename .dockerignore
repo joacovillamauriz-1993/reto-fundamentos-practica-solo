@@ -1,0 +1,12 @@
+#Por razonesde seguridad: contraseñas y data sensible
+.env
+
+#Por tamaño, para no enviar historial de commits ni ramas.
+.git
+
+#Evitar problemas de compatibilidad o informacion basura dentro del contenedor
+__pycache__
+
+#Evitar que se copie un entorno virtual al contenedor
+.venv/
+

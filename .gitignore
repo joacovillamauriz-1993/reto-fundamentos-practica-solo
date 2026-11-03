@@ -1,0 +1,8 @@
+#Por razonesde seguridad: contraseñas y data sensible
+.env
+
+#Evitar problemas de compatibilidad o informacion basura dentro del contenedor
+__pycache__
+
+#Evitar que se copie un entorno virtual al contenedor
+.venv/
